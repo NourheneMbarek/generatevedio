@@ -64,6 +64,18 @@ const Image = () => {
                         <span className="btn-inner--text">Upload Image</span>
                       </Button>
 
+                      <div class="bottom-icons text-info">
+                    <div >
+
+                        <Input style="display: none" type="file" />
+                        <fa-icon class="fa-icon">
+                        </fa-icon>
+                    </div>
+
+
+                    (click)="fileInput.click()"
+                  </div>
+
                       
                    
                   </div>

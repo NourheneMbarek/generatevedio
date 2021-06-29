@@ -35,24 +35,67 @@ import {
   DropdownToggle,
   Media,
   Dropdown,
-  ButtonDropdown
+  ButtonDropdown,
+  Button
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
-
+import Canvas from "views/examples/Canvas.js"
+import { SketchPicker } from 'react-color'
 const Settings = () => {
   const [copiedText, setCopiedText] = useState();
   const [dropdownOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!dropdownOpen);
+  const [size, setSize] = useState("Square  1:1");
+  const [width, setWidth] = useState(1080);
+  const [height, setHeight] = useState(1080);
+  const [displayp, setDisplayp] = useState(false);
+  const listsize = [
+    {
+      "name": "Portrait 4:5",
+      "width": 566,//1080,
+      "height": 588,//1350
+    },
+    {
+      "name": "Landscape 5:4",
+      "width": 100,//1350,
+      "height": 300///1080
+    },
+    {
+      "name": "Landscape 16:9",
+      "width": 400,//1920,
+      "height": 300//1080
+    },
+    {
+      "name": "Portrait 9:16",
+      "width":500, //1080,
+      "height":300 //1920
+    },
+    {
+      "name": "Square  1:1",
+      "width": 500,//1080,
+      "height": 500//1080
+    }
+  ]
+  const [colorHexCode, setColorHexCode] = useState('#000000');
+  function handleChange(e) {
+    setSize(e.target.value)
+    // console.log(listsize.find(t=>t.name ===e.target.value).width)
+    setWidth(listsize.find(t => t.name === e.target.value).width)
+    setHeight(listsize.find(t => t.name === e.target.value).height)
+  }
+  function dispalyPlatteColor() {
+    setDisplayp(!displayp)
+  }
   return (
     <>
       <Header />
 
       {/* Page content */}
-      <Container className="" height="100%">
+      <Container className="" height="100%" style={{ padding: '0px', margin: '0px' }}>
         <Row>
-          <Col lg="3" md="6" style={{ paddingLeft: '0px' }}  >
+          <Col lg="3" md="6" style={{ paddingLeft: '15px' }}  >
 
             <Card className="shadow" >
               <CardHeader className="bg-transparent">
@@ -60,49 +103,49 @@ const Settings = () => {
               </CardHeader>
               <CardBody>
                 <Col className="icon-examples">
-                  <label>Size</label>
-                  <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-                    <DropdownToggle caret>
-                      Button Dropdown
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem header>Header</DropdownItem>
-                      <DropdownItem disabled>Action</DropdownItem>
-                      <DropdownItem>Another Action</DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>Another Action</DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
+                  <Row>
+                    <label>Size</label>
+                  </Row>
+                  <Row>
+                    <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+                      <DropdownToggle >
+                        {size}
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        {listsize.map((listsize, i) => <DropdownItem key={i} onClick={handleChange} value={listsize.name}>{listsize.name}</DropdownItem>)}
 
-                  {/* <Col lg="3" md="6">
-                      <CopyToClipboard
-                        text={"ni ni-ui-04"}
-                        onCopy={() => setCopiedText("ni ni-ui-04")}
-                      >
-                        <button
-                          className="btn-icon-clipboard"
-                          data-clipboard-text="ui-04"
-                          id="tooltip9332484"
-                          type="button"
-                        >
-                          <div>
-                            <i className="ni ni-ui-04" />
-                            <span>ui-04</span>
-                          </div>
-                        </button>
-                      </CopyToClipboard>
-                      <UncontrolledTooltip
-                        delay={0}
-                        trigger="hover focus"
-                        target="tooltip9332484"
-                      >
-                        {copiedText === "ni ni-ui-04"
-                          ? "This was Copied!"
-                          : "Copy To Clipbord"}
-                      </UncontrolledTooltip>
-                    </Col>
-                  
-                   */}
+                      </DropdownMenu>
+                    </ButtonDropdown>
+
+
+
+                  </Row>
+                  <Row>
+                    <label>Background Color</label>
+                  </Row>
+                  <Row >
+
+                    <div className="align-items-center d-none d-md-flex block-example border border-light">
+                      <Input
+                        placeholder="Color"
+                        type="email"
+
+                        value={colorHexCode}
+                        style={{ border: 'none' }}
+
+                      />
+
+                      <Button color={colorHexCode}/* {colorHexCode} */ onClick={dispalyPlatteColor}></Button>
+
+                    </div>
+                    {displayp ? <SketchPicker
+                      color={colorHexCode}
+                      onChange={e => setColorHexCode(e.hex)} /> : ''
+
+                    }
+
+
+                  </Row>
 
                 </Col>
               </CardBody>
@@ -112,43 +155,7 @@ const Settings = () => {
           {/* Table */}
           <Col>
 
-            <Card className="shadow">
-              <CardHeader className="bg-transparent">
-                <h3 className="mb-0">Icons</h3>
-              </CardHeader>
-              <CardBody>
-                <Row className="icon-examples">
-
-                  <Col lg="3" md="6">
-                    <CopyToClipboard
-                      text={"ni ni-ui-04"}
-                      onCopy={() => setCopiedText("ni ni-ui-04")}
-                    >
-                      <button
-                        className="btn-icon-clipboard"
-                        data-clipboard-text="ui-04"
-                        id="tooltip9332484"
-                        type="button"
-                      >
-                        <div>
-                          <i className="ni ni-ui-04" />
-                          <span>ui-04</span>
-                        </div>
-                      </button>
-                    </CopyToClipboard>
-                    <UncontrolledTooltip
-                      delay={0}
-                      trigger="hover focus"
-                      target="tooltip9332484"
-                    >
-                      {copiedText === "ni ni-ui-04"
-                        ? "This was Copied!"
-                        : "Copy To Clipbord"}
-                    </UncontrolledTooltip>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
+            <Canvas width={width} height={height} color={colorHexCode} ></Canvas>
 
           </Col>
 

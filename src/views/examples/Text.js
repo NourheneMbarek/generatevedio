@@ -27,17 +27,79 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
+  Button,
+  ButtonGroup
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
+import Canvas from "views/examples/Canvas.js"
 
 const Text = () => {
   const [copiedText, setCopiedText] = useState();
   return (
     <>
       <Header />
-   
-    
+      <Container className="" height="100%" style={{ padding: '0px', margin: '0px' }}>
+        <Row>
+          <Col lg="3" md="6" style={{ paddingLeft: '15px' }}  >
+
+            <Card className="shadow" >
+              <CardHeader className="bg-transparent">
+                <h3 className="mb-0">Text</h3>
+              </CardHeader>
+              <CardBody>
+                <Col className="icon-examples">
+                  <div className="text-center list-unstyled">
+                      <Button block 
+                        className=" mb-3"
+                        
+                        ocolor="secondary" type="button"
+                        onClick={(e) => e.preventDefault()}
+                        style={{ fontStyle: "headline" }}
+                      >
+                        <span className="btn-inner--text">Headline</span>
+                      </Button>
+
+                      <Button block 
+                        className=" mb-3"
+                        color="secondary"
+                        
+                        onClick={(e) => e.preventDefault()}
+                        
+                      >
+
+
+                        <span className="btn-inner--text" style={{ fontStyle: "regular" }}>Regular</span>
+                      </Button>
+                      <Button block 
+                        className="mb-3"
+                        color="secondary"
+                        
+                        onClick={(e) => e.preventDefault()}
+                        style={{ fontStyle: "Handwritten" }}
+                      >
+
+                        <span className="btn-inner--text">Handwritten</span>
+                      </Button>
+                    {/* </ButtonGroup> */}
+                  </div>
+                </Col>
+              </CardBody>
+            </Card>
+
+          </Col>
+          {/* Table */}
+          <Col>
+
+            <Canvas  ></Canvas>
+
+          </Col>
+
+        </Row>
+      </Container>
+
+
+
     </>
   );
 };

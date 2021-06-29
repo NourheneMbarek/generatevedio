@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 // react component that copies the given text inside your clipboard
 import { CopyToClipboard } from "react-copy-to-clipboard";
 // reactstrap components
@@ -29,56 +29,96 @@ import {
   UncontrolledTooltip,
   Button,
   ButtonGroup,
-  Input
+  Input,
+  CardImg
 } from "reactstrap";
+import "./image.css"
 // core components
 import Header from "components/Headers/Header.js";
 import Canvas from "views/examples/Canvas.js"
+import FilerobotImageEditor from 'filerobot-image-editor'
+const testImageURL = 'https://scaleflex.airstore.io/demo/stephen-walker-unsplash.jpg';
+const config = {
+  filerobot: {
+    uploadkey: 'bf72d18393ea40d5b4fccd9fb83806fa',
+    container: 'fpdlhfjm'
 
+  }
+}
 const Image = () => {
   const [fName, setfName] = useState('');
   const [copiedText, setCopiedText] = useState();
+
+  const inputFileRef = useRef(null);
+  const reader  = new FileReader();
+  const onFilechange = (e) => { /*Selected files data can be collected here.*/
+    console.log(e.target.files[0]);
+    console.log(e.target.value)
+    setfName(e.target.value)
+    
+    setSrc(URL.createObjectURL(e.target.files[0]))
+
+
+  }
+  const handleBtnClick = () => { /*Collecting node-element and performing click*/
+    inputFileRef.current.click();
+  }
+  const [src, setSrc] = useState(testImageURL);
+  const [show, toggle] = useState(false);
+  const showImageEditor = () => { toggle(true); };
+  const closeImageEditor = () => { toggle(false); };
+  const onComplete = (newUrl) => { setSrc(newUrl); };
+
   return (
     <>
       <Header />
-   
-      <Container className="" height="100%" style={{ padding: '0px', margin: '0px' }}>
-        <Row>
-          <Col lg="3" md="6" style={{ paddingLeft: '15px' }}  >
 
-            <Card className="shadow" >
+      <Container className=" h-25"
+        style={
+          {
+            padding: '0px',
+            margin: '0px'
+          }
+        }>
+        <Row>
+          <Col lg="3" md="6"
+          className=""
+            style={
+              { paddingLeft: '15px',  }
+            }>
+
+            <Card className="shadow" style={{height:"100%"}}>
               <CardHeader className="bg-transparent">
                 <h3 className="mb-0">Image</h3>
               </CardHeader>
               <CardBody>
                 <Col className="icon-examples">
-                  <div className="text-center list-unstyled">
-                      <Button block 
-                        className=" mb-3"
-                        
-                        ocolor="secondary" type="button"
-                        onClick={(e) => e.preventDefault()}
-                        style={{ fontStyle: "headline" }}
-                      >
-                        <Input type="file" name="file" id="exampleFile" accept="audio/mp3" onChange={e => setfName(e.target.value)}></Input>
-                        <span className="btn-inner--text">Upload Image</span>
-                      </Button>
-
-                      <div class="bottom-icons text-info">
-                    <div >
-
-                        <Input style="display: none" type="file" />
-                        <fa-icon class="fa-icon">
-                        </fa-icon>
-                    </div>
+                  <form className="some-container">
+                    <input type="file" accept="image/gif,image/jpeg,image/png,.gif,.jpeg,.jpg,.png"
+                      ref={inputFileRef}
+                      onChange={onFilechange}
+                      hidden={true} />
+                    <Button onClick={handleBtnClick}>Select file</Button>
+                  </form>
+                  {/* {fName} */}
+                  {/* <CardImg top width="100%" src={src} alt="Card image cap" /> */}
+                  <img
+                    alt="Image placeholder"
+                    src={src} onClick={showImageEditor}
+                    className="img-fluid img-thumbnail mt-2"
+                  />
+                  {/* <Col xs={6} md={4}>
+      <Image src={src} rounded />
+    </Col> */}
 
 
-                    (click)="fileInput.click()"
-                  </div>
-
-                      
-                   
-                  </div>
+                  <FilerobotImageEditor
+                    show={show}
+                    src={src}
+                    // config={config}
+                    onComplete={onComplete}
+                    onClose={closeImageEditor}
+                  />
                 </Col>
               </CardBody>
             </Card>
@@ -87,11 +127,15 @@ const Image = () => {
           {/* Table */}
           <Col>
 
-            <Canvas  ></Canvas>
+            <Canvas></Canvas>
 
           </Col>
 
         </Row>
+
+
+
+
       </Container>
 
     </>

@@ -60,7 +60,7 @@ const Canvas = ({width, height, color}) => {
         // Size: 1080 x 1080 px
         // Aspect Ratio: 1:1
         // const width ='200'
-        
+
     }, [width, height, color])
 
     return (

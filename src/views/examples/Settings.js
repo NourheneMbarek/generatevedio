@@ -48,18 +48,18 @@ const Settings = () => {
 
   const toggle = () => setOpen(!dropdownOpen);
   const [size, setSize] = useState("Square  1:1");
-  const [width, setWidth] = useState(1080);
-  const [height, setHeight] = useState(1080);
+  const [width, setWidth] = useState(500);
+  const [height, setHeight] = useState(500);
   const [displayp, setDisplayp] = useState(false);
   const listsize = [
     {
       "name": "Portrait 4:5",
       "width": 566,//1080,
-      "height": 588,//1350
+      "height": 836,//1350
     },
     {
       "name": "Landscape 5:4",
-      "width": 100,//1350,
+      "width": 536,//1350,
       "height": 300///1080
     },
     {
@@ -93,21 +93,21 @@ const Settings = () => {
       <Header />
 
       {/* Page content */}
-      <Container className="" height="100%" style={{ padding: '0px', margin: '0px' }}>
+      <Container className="navbar-vertical  h-100 bg-white"  style={{ padding: '0px', margin: '0px', height:"100%" , backgroundColor: 'blue'}} >
         <Row>
           <Col lg="3" md="6" style={{ paddingLeft: '15px' }}  >
 
-            <Card className="shadow" >
+            <Card className="shadow navbar-vertical fixed-left navbar-light bg-white" style={{height:"100%"}} >
               <CardHeader className="bg-transparent">
                 <h3 className="mb-0">Settings</h3>
               </CardHeader>
               <CardBody>
-                <Col className="icon-examples">
+                <Col className="icon-examples" >
                   <Row>
                     <label>Size</label>
                   </Row>
                   <Row>
-                    <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+                    <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} block>
                       <DropdownToggle >
                         {size}
                       </DropdownToggle>
@@ -120,8 +120,8 @@ const Settings = () => {
 
 
                   </Row>
-                  <Row>
-                    <label>Background Color</label>
+                  <Row className="mt-2">
+                    <label >Background Color</label>
                   </Row>
                   <Row >
 

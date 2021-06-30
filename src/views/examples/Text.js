@@ -36,6 +36,7 @@ import Canvas from "views/examples/Canvas.js"
 
 const Text = () => {
   const [copiedText, setCopiedText] = useState();
+  const [text, setText] = useState();
   return (
     <>
       <Header />
@@ -56,6 +57,9 @@ const Text = () => {
                         ocolor="secondary" type="button"
                         onClick={(e) => e.preventDefault()}
                         style={{ fontStyle: "headline" }}
+                        onChange={(e) => { 
+                          setText(e.target.value)
+                        }}
                       >
                         <span className="btn-inner--text">Headline</span>
                       </Button>
@@ -65,6 +69,9 @@ const Text = () => {
                         color="secondary"
                         
                         onClick={(e) => e.preventDefault()}
+                        onChange={(e) => {
+                          setText(e.target.value)
+                        }}
                         
                       >
 
@@ -77,6 +84,9 @@ const Text = () => {
                         
                         onClick={(e) => e.preventDefault()}
                         style={{ fontStyle: "Handwritten" }}
+                        onChange={(e) => {
+                          setText(e.target.value)
+                        }}
                       >
 
                         <span className="btn-inner--text">Handwritten</span>
@@ -91,7 +101,7 @@ const Text = () => {
           {/* Table */}
           <Col>
 
-            <Canvas  ></Canvas>
+            <Canvas text={text} ></Canvas>
 
           </Col>
 

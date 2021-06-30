@@ -35,8 +35,9 @@ import {
 import "./image.css"
 // core components
 import Header from "components/Headers/Header.js";
-import Canvas from "views/examples/Canvas.js"
-import FilerobotImageEditor from 'filerobot-image-editor'
+import Canvas from "views/examples/Canvas.js";
+import FilerobotImageEditor from 'filerobot-image-editor';
+
 const testImageURL = 'https://scaleflex.airstore.io/demo/stephen-walker-unsplash.jpg';
 const config = {
   filerobot: {
